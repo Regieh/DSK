@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 5fd210bb230f1406d9a4299c3fb30d69
+guid: effdb38abe62e46f5bf315908d7632c2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4534872430750550929
-    second: start-button_0
+      213: -4573964324752932490
+    second: pinter_0
+  - first:
+      213: 8543903558548182176
+    second: pinter_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: start-button_0
+      name: pinter_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 21
-        width: 2073
-        height: 2222
+        x: 2
+        y: 818
+        width: 359
+        height: 293
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f64b66f0d85e011c0800000000000000
-      internalID: -4534872430750550929
+      spriteID: 671cac73ea30680c0800000000000000
+      internalID: -4573964324752932490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pinter_1
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 359
+        height: 936
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a4d57ad40b029670800000000000000
+      internalID: 8543903558548182176
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      start-button_0: -4534872430750550929
+      pinter_0: -4573964324752932490
+      pinter_1: 8543903558548182176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
