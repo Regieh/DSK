@@ -123,9 +123,9 @@ public class CameraFollow : MonoBehaviour
         Vector3 targetPosition = target.position;
         
         // Add look-ahead if enabled
-        if (useLookAhead && targetRigidbody != null && targetRigidbody.velocity.magnitude > 0.1f)
+        if (useLookAhead && targetRigidbody != null && targetRigidbody.linearVelocity.magnitude > 0.1f)
         {
-            Vector3 lookAheadOffset = targetRigidbody.velocity.normalized * lookAheadDistance;
+            Vector3 lookAheadOffset = targetRigidbody.linearVelocity.normalized * lookAheadDistance;
             targetPosition += Vector3.Lerp(Vector3.zero, lookAheadOffset, Time.deltaTime * lookAheadSpeed);
         }
         

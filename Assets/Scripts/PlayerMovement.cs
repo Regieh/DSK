@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         isDead = true;
         
         // Stop the player
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         
         // Hide visual feedback
         HideVisualFeedback();
@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector3.zero;
         
         // Reset velocity
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         
         Debug.Log("Level restarted!");
         
