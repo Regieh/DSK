@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,7 +15,11 @@ public class PlayerMovement : MonoBehaviour
     public int aimLineSegments = 20;
     
     [Header("Death Settings")]
-    public string obstacleTag = "Obstacle"; // Tag for obstacles that kill the player
+    public string obstacleTag = "Obstacle"; 
+    
+    [Header("Level Settings")] 
+    public string finishTag = "Finish"; 
+    public string homeSceneName = "HomeScene"; 
     
     private Rigidbody2D rb;
     private Camera mainCamera;
@@ -23,16 +28,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 dragDirection;
     private float dragDistance;
     private bool wasTouchPressed = false;
-    private bool isDead = false; // Track if player is dead
+    private bool isDead = false; 
 
-    public EventHandler eventHandler; // Reference to EventHandler for game state management
+    public EventHandler eventHandler; 
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         
-        // Setup aim line if not assigned
         if (aimLine == null)
         {
             GameObject aimLineObj = new GameObject("AimLine");
@@ -54,16 +58,13 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-        // Don't allow input if player is dead
         if (isDead) return;
         
         HandleInput();
 
         if (isDragging)
         {
-            // Slow down player while dragging
-            rb.linearVelocity *= 0.4f;
-
+            rb.velocity *= 0.4f; 
             UpdateAiming();
             ShowVisualFeedback();
         }
@@ -73,75 +74,56 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+    // Called when the player physically collides with something
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if collided with an obstacle
         if (collision.gameObject.CompareTag(obstacleTag))
         {
-            eventHandler.isGameOver = true; // Trigger game over state
+            Debug.Log("Player collided with an obstacle. Game Over!");
+            eventHandler.isGameOver = true;
             Die();
+        }
+    }
+    
+    // Called when the player passes through a trigger collider
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(finishTag))
+        {
+            Debug.Log("Player reached the finish line! Loading Home Scene.");
+            LoadHomeScene();
         }
     }
     
     void Die()
     {
-        if (isDead) return; // Prevent multiple death calls
-        
+        if (isDead) return;
         isDead = true;
-        
-        // Stop the player
-        rb.linearVelocity = Vector2.zero;
-        
-        // Hide visual feedback
+        rb.velocity = Vector2.zero;
         HideVisualFeedback();
-        
-        // Disable dragging
         isDragging = false;
         
-        Debug.Log("Player died!");
-        
-        // You can add more death effects here:
-        // - Play death animation
-        // - Show game over UI
-        // - Restart level after delay
-        // - Disable player renderer
-        // - Play death sound
-        
-        // Example: Restart level after 2 seconds
-        //Invoke("RestartLevel", 2f);
+        // This is where you would reload the scene.
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
     
-    void RestartLevel()
+    void LoadHomeScene()
     {
-        // Reset player state
-        isDead = false;
-        
-        // Reset position to spawn point (modify as needed)
-        transform.position = Vector3.zero;
-        
-        // Reset velocity
-        rb.linearVelocity = Vector2.zero;
-        
-        Debug.Log("Level restarted!");
-        
-        // Or use SceneManager to reload the scene:
-        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(homeSceneName);
     }
-    
+
     void HandleInput()
     {
         bool touchPressed = false;
         Vector2 touchPosition = Vector2.zero;
         
-        // Handle touch input for mobile
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             touchPressed = touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary;
             touchPosition = touch.position;
         }
-        // Handle mouse input for editor testing
         else if (Input.GetMouseButton(0))
         {
             touchPressed = true;
@@ -153,12 +135,10 @@ public class PlayerMovement : MonoBehaviour
         
         if (touchJustPressed && CanStartDrag())
         {
-            Debug.Log("Attempting to start drag...");
             StartDrag(touchPosition);
         }
         else if (touchJustReleased && isDragging)
         {
-            Debug.Log("Ending drag with distance: " + dragDistance);
             EndDrag();
         }
         
@@ -167,30 +147,18 @@ public class PlayerMovement : MonoBehaviour
     
     bool CanStartDrag()
     {
-        // Allow dragging at any time - removed velocity check
         return true;
     }
     
     void StartDrag(Vector2 screenPosition)
     {
         Vector3 touchWorldPos = GetWorldPosition(screenPosition);
-        Debug.Log("Touch world position: " + touchWorldPos);
-        Debug.Log("Player position: " + transform.position);
-        
-        // Check if touch is close enough to the player
         float distanceToPlayer = Vector3.Distance(touchWorldPos, transform.position);
-        Debug.Log("Distance to player: " + distanceToPlayer);
         
-        if (distanceToPlayer < 1f) // Adjust this threshold as needed
+        if (distanceToPlayer < 1f)
         {
             isDragging = true;
             startDragPosition = transform.position;
-            // Don't stop velocity - allow dragging while moving
-            Debug.Log("Drag started successfully!");
-        }
-        else
-        {
-            Debug.Log("Too far from player to start drag");
         }
     }
     
@@ -198,7 +166,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 currentTouchPosition = Vector2.zero;
         
-        // Get current touch/mouse position
         if (Input.touchCount > 0)
         {
             currentTouchPosition = Input.GetTouch(0).position;
@@ -209,32 +176,38 @@ public class PlayerMovement : MonoBehaviour
         }
         
         Vector3 currentTouchWorldPos = GetWorldPosition(currentTouchPosition);
-        // Use current player position instead of initial drag position for smoother feel
         dragDirection = (transform.position - currentTouchWorldPos).normalized;
         dragDistance = Mathf.Min(Vector3.Distance(transform.position, currentTouchWorldPos), maxDragDistance);
     }
     
     void ShowVisualFeedback()
     {
-        // Show aim line
-        Vector3 startPos = transform.position;
+        float baseOffset = 0.5f; 
+        Vector3 startPos = transform.position - dragDirection * baseOffset;
         Vector3 endPos = startPos + dragDirection * (dragDistance * 2f);
-        
-        // Create trajectory preview
+
         Vector3[] trajectoryPoints = CalculateTrajectory(startPos, dragDirection * GetForceAmount());
-        
         aimLine.positionCount = trajectoryPoints.Length;
         aimLine.SetPositions(trajectoryPoints);
-        
-        // Update power indicator size if exists
+
         if (powerIndicator != null)
         {
             float powerScale = dragDistance / maxDragDistance;
-            powerIndicator.localScale = Vector3.one * (0.5f + powerScale * 0.5f);
-            powerIndicator.position = transform.position - dragDirection * dragDistance;
+
+            if (dragDistance > 0.1f)
+            {
+                powerIndicator.gameObject.SetActive(true);
+                powerIndicator.localScale = Vector3.one * (0.5f + powerScale * 0.5f);
+                float indicatorOffset = baseOffset + dragDistance + 0.3f;
+                powerIndicator.position = transform.position - dragDirection * indicatorOffset;
+            }
+            else
+            {
+                powerIndicator.gameObject.SetActive(false);
+            }
         }
     }
-    
+
     Vector3[] CalculateTrajectory(Vector3 startPos, Vector3 velocity)
     {
         Vector3[] points = new Vector3[aimLineSegments];
@@ -244,9 +217,7 @@ public class PlayerMovement : MonoBehaviour
         {
             float time = i * timeStep;
             points[i] = startPos + velocity * time;
-            
-            // Apply physics drag simulation (optional)
-            velocity *= 0.98f; // Simulate drag
+            velocity *= 0.98f;
         }
         
         return points;
@@ -258,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
             aimLine.positionCount = 0;
         
         if (powerIndicator != null)
-            powerIndicator.localScale = Vector3.zero;
+            powerIndicator.gameObject.SetActive(false);
     }
     
     void EndDrag()
@@ -276,7 +247,6 @@ public class PlayerMovement : MonoBehaviour
     {
         float forceAmount = GetForceAmount();
         Vector2 forceVector = dragDirection * forceAmount;
-        
         rb.AddForce(forceVector, ForceMode2D.Impulse);
     }
     
@@ -288,11 +258,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 GetWorldPosition(Vector2 screenPosition)
     {
         Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, mainCamera.nearClipPlane));
-        worldPos.z = 0f; // For 2D, set z to 0
+        worldPos.z = 0f;
         return worldPos;
     }
     
-    // Optional: Add gizmos for debugging
     void OnDrawGizmosSelected()
     {
         if (isDragging)
