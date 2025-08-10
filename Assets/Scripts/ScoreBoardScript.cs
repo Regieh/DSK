@@ -1,21 +1,33 @@
 using UnityEngine;
 using TMPro;
 
-public class ScoreBoardScript : MonoBehaviour
+public class ScoreboardScript : MonoBehaviour
 {
-    public int playerScore = 0; 
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreboardText; // Drag your TMP object here
+    private float startTime;
+    private bool isFinished = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        startTime = Time.time;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        scoreText.text = playerScore.ToString();
+        if (!isFinished)
+        {
+            float t = Time.time - startTime;
+
+            string minutes = ((int)t / 60).ToString("00");
+            string seconds = (t % 60).ToString("00");
+            string milliseconds = ((int)(t * 100) % 100).ToString("00");
+
+            scoreboardText.text = $"{minutes}:{seconds}:{milliseconds}";
+        }
     }
 
+    public void FinishGame()
+    {
+        isFinished = true;
+    }
 }

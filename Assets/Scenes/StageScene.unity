@@ -1147,8 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25dff6e045d64fb7b7d794663c3e828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScore: 0
-  scoreText: {fileID: 623646486}
+  scoreboardText: {fileID: 0}
 --- !u!1 &215883390
 GameObject:
   m_ObjectHideFlags: 0
@@ -4552,6 +4551,8 @@ GameObject:
   - component: {fileID: 623646485}
   - component: {fileID: 623646487}
   - component: {fileID: 623646486}
+  - component: {fileID: 623646489}
+  - component: {fileID: 623646488}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -4598,7 +4599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 99999
+  m_text: 00:00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4675,6 +4676,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623646484}
   m_CullTransparentMesh: 1
+--- !u!114 &623646488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623646484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25dff6e045d64fb7b7d794663c3e828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreboardText: {fileID: 623646486}
+--- !u!114 &623646489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623646484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e465af5e7ddd4a09a69fce9a6358ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreboardText: {fileID: 0}
+  startTime: 0
+  isFinished: 0
 --- !u!1 &663474594
 GameObject:
   m_ObjectHideFlags: 0
@@ -10004,6 +10033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1308036376}
+  - component: {fileID: 1308036377}
   m_Layer: 5
   m_Name: ScoreBoard2
   m_TagString: Untagged
@@ -10034,6 +10064,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -71.999985}
   m_SizeDelta: {x: 278.7, y: 260.4}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1308036377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308036375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25dff6e045d64fb7b7d794663c3e828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreboardText: {fileID: 0}
 --- !u!1 &1312392401
 GameObject:
   m_ObjectHideFlags: 0
@@ -15079,7 +15122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HEIGHT
+  m_text: TIME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
