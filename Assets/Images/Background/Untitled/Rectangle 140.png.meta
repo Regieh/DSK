@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f08fc3f9e3d6e4984b4ff772b91be65e
+guid: 750f97ee7200c4993b859f328153bded
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1955448553306655712
-    second: Background_0
+      213: 1797981236127586098
+    second: Rectangle 140_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Background_0
+      name: Rectangle 140_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4700
-        height: 10192
+        width: 384
+        height: 384
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 024fa93b6e9dcd4e0800000000000000
-      internalID: -1955448553306655712
+      spriteID: 237d33c7866b3f810800000000000000
+      internalID: 1797981236127586098
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c9e397a8d3e2f47f1b9ca86f754fff04
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Background_0: -1955448553306655712
+      Rectangle 140_0: 1797981236127586098
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
