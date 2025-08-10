@@ -11807,6 +11807,7 @@ MonoBehaviour:
   isGamePaused: 0
   gameOverPanel: {fileID: 1748903206}
   scorePanel: {fileID: 5072760}
+  playerMovement: {fileID: 0}
 --- !u!1 &1526240619
 GameObject:
   m_ObjectHideFlags: 0
