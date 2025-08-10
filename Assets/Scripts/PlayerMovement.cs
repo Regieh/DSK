@@ -56,9 +56,12 @@ public class PlayerMovement : MonoBehaviour
         if (isDead) return;
         
         HandleInput();
-        
+
         if (isDragging)
         {
+            // Slow down player while dragging
+            rb.velocity *= 0.4f;
+
             UpdateAiming();
             ShowVisualFeedback();
         }
@@ -67,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
             HideVisualFeedback();
         }
     }
+
     
     void OnCollisionEnter2D(Collision2D collision)
     {
