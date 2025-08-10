@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         // - Play death sound
         
         // Example: Restart level after 2 seconds
-        Invoke("RestartLevel", 2f);
+        //Invoke("RestartLevel", 2f);
     }
     
     void RestartLevel()

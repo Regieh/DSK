@@ -6,6 +6,7 @@ public class EventHandler : MonoBehaviour
     public bool isGamePaused = false;
     public GameObject gameOverPanel;
     public GameObject scorePanel;
+    public PlayerMovement playerMovement; // Reference to PlayerMovement script
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
