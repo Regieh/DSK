@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EventHandler : MonoBehaviour
 {
-    public bool isGameOver = true;
+    public bool isGameOver = false;
     public bool isGamePaused = false;
     public GameObject gameOverPanel;
     public GameObject scorePanel;
