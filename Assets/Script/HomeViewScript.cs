@@ -18,7 +18,7 @@ public class HomeViewScript : MonoBehaviour
     public void ButtonStartGame()
     {
         // Load the game scene when the button is clicked
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("StageScene");
         
         Debug.Log("Game Started");
     }
