@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private float dragDistance;
     private bool wasTouchPressed = false;
     private bool isDead = false; // Track if player is dead
+
+    public EventHandler eventHandler; // Reference to EventHandler for game state management
     
     void Start()
     {
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         if (isDragging)
         {
             // Slow down player while dragging
-            rb.velocity *= 0.4f;
+            rb.linearVelocity *= 0.4f;
 
             UpdateAiming();
             ShowVisualFeedback();
@@ -77,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if collided with an obstacle
         if (collision.gameObject.CompareTag(obstacleTag))
         {
+            eventHandler.isGameOver = true; // Trigger game over state
             Die();
         }
     }
